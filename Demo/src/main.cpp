@@ -1,10 +1,12 @@
 #include <iostream>
 #include "Core/Application.h"
 #include "Core/Window.h"
+#include "Logging/logger.h"
 
 class App : public Oxide::Application {
 public:
 	void onInit() override {
+		OX_CLIENT_INFO("initializing")
 		Oxide::WindowData data;
 		m_window = Oxide::Window::create(data);
 		m_window->onInit();
@@ -19,6 +21,7 @@ public:
 	}
 
 	void onDestroy() override {
+		OX_CLIENT_INFO("Destroyed")
 		m_window->onDestroy();
 	}
 

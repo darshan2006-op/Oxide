@@ -13,7 +13,8 @@ project "Demo"
 
     includedirs{
         "src",
-        "%{IncludeDir.Oxide}"
+        "%{IncludeDir.Oxide}",
+        "%{IncludeDir.spdlog}"
     }
 
     links{

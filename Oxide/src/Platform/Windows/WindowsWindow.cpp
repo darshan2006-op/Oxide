@@ -1,13 +1,15 @@
 #include "WindowsWindow.h"
 #include "GLFW/glfw3.h"
+#include "Logging/logger.h"
 
 #include <stdexcept>
+
 
 namespace Oxide {
 	WindowsWindow::WindowsWindow(WindowData data): m_windowData(data), m_window(nullptr)
 	{
 		if (!glfwInit()) {
-			throw std::runtime_error("Unable to initialize windowing framework(GLFW)");
+			OX_CORE_ERROR("Unable to initialize windowing framework(GLFW)")
 		}
 	}
 
@@ -21,7 +23,7 @@ namespace Oxide {
 
 		if (!m_window) {
 			glfwTerminate();
-			throw std::runtime_error("Unable to create a window using windowing framework(GLFW)");
+			OX_CORE_ERROR("Unable to create a window using windowing framework(GLFW)")
 		}
 	}
 

@@ -14,7 +14,8 @@ project "Oxide"
 
     includedirs{
         "src",
-        "%{IncludeDir.glfw}"
+        "%{IncludeDir.glfw}",
+        "%{IncludeDir.spdlog}"
     }
 
     links{
