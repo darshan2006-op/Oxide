@@ -17,5 +17,10 @@ flags{
 
 outputdir = "%{cfg.buildcfg}-%{cfg.system}-%{cfg.architecture}"
 
-include "Oxide"
-include "Demo"
+
+group "Dependencies"
+    include "Oxide/vendor/glfw"
+
+group "Core"
+    include "Oxide"
+    include "Demo"

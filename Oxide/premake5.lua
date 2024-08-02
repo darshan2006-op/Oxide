@@ -13,11 +13,13 @@ project "Oxide"
     }
 
     includedirs{
-        "src"
+        "src",
+        "%{IncludeDir.glfw}"
     }
 
     links{
-        "opengl32.lib"
+        "opengl32.lib",
+        "GLFW"
     }
 
     filter "configurations:Debug"
