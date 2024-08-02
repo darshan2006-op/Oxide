@@ -23,12 +23,10 @@ namespace Oxide {
 			glfwTerminate();
 			throw std::runtime_error("Unable to create a window using windowing framework(GLFW)");
 		}
-
 	}
 
 	void WindowsWindow::onUpdate()
 	{
-
 		glfwPollEvents();
 	}
 

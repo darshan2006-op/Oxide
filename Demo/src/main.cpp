@@ -5,8 +5,6 @@
 class App : public Oxide::Application {
 public:
 	void onInit() override {
-		std::cout << "OnInit" << std::endl;
-
 		Oxide::WindowData data;
 		m_window = Oxide::Window::create(data);
 		m_window->onInit();
@@ -14,7 +12,6 @@ public:
 	}
 
 	void onUpdate() override {
-		std::cout << "OnUpdate" << std::endl;
 		m_window->onUpdate();
 
 		if (m_window->isWindowClosed())
@@ -22,7 +19,6 @@ public:
 	}
 
 	void onDestroy() override {
-		std::cout << "OnDestroy" << std::endl;
 		m_window->onDestroy();
 	}
 
