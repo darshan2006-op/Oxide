@@ -1,5 +1,6 @@
 #pragma once
 #include "Core/Window.h"
+#include "Core/Application.h"
 
 struct GLFWwindow;
 
@@ -17,6 +18,7 @@ namespace Oxide {
 		virtual bool isWindowClosed() override;
 		~WindowsWindow();
 	private:
+		std::shared_ptr<Application> m_app;
 		WindowData m_windowData;
 		GLFWwindow* m_window;
 	};

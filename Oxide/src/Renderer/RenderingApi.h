@@ -5,5 +5,5 @@ namespace Oxide {
 		Vulkan, Opengl
 	};
 
-	RenderingApis g_currentApi = RenderingApis::Opengl;
+	inline RenderingApis g_currentApi = RenderingApis::Opengl;
 }

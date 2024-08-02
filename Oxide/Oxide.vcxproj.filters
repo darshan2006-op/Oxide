@@ -33,6 +33,14 @@
     <ClInclude Include="src\Renderer\GraphicalContext.h" />
     <ClInclude Include="src\Renderer\RenderingApi.h" />
     <ClInclude Include="src\Platform\OpenGL\OpenGLGraphicalContext.h" />
+    <ClInclude Include="src\Renderer\Renderer.h" />
+    <ClInclude Include="src\Platform\OpenGL\OpenGLRenderer.h" />
+    <ClInclude Include="src\Events\Event.h" />
+    <ClInclude Include="src\Events\ApplicationEvents.h" />
+    <ClInclude Include="src\Events\KeyEvent.h" />
+    <ClInclude Include="src\Events\KeyCodes.h" />
+    <ClInclude Include="src\Events\MouseEvents.h" />
+    <ClInclude Include="src\Events\MouseCodes.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Core\EntryPoint.cpp">
@@ -49,5 +57,7 @@
     </ClCompile>
     <ClCompile Include="src\Renderer\GraphicalContext.cpp" />
     <ClCompile Include="src\Platform\OpenGL\OpenGLGraphicalContext.cpp" />
+    <ClCompile Include="src\Renderer\Renderer.cpp" />
+    <ClCompile Include="src\Platform\OpenGL\OpenGLRenderer.cpp" />
   </ItemGroup>
 </Project>
