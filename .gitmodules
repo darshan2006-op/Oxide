@@ -1,6 +1,6 @@
 [submodule "Oxide/vendor/glfw"]
 	path = Oxide/vendor/glfw
-	url = https://github.com/TheCherno/glfw.git
+	url = https://github.com/darshan2006-op/glfw-premake.git
 [submodule "Oxide/vendor/spdlog"]
 	path = Oxide/vendor/spdlog
 	url = https://github.com/gabime/spdlog.git
