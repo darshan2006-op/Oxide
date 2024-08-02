@@ -20,6 +20,7 @@ outputdir = "%{cfg.buildcfg}-%{cfg.system}-%{cfg.architecture}"
 
 group "Dependencies"
     include "Oxide/vendor/glfw"
+    include "Oxide/vendor/glad"
 
 group "Core"
     include "Oxide"

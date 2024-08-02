@@ -1,4 +1,5 @@
 #include "WindowsWindow.h"
+#include "glad/glad.h"
 #include "GLFW/glfw3.h"
 #include "Logging/logger.h"
 
@@ -25,10 +26,13 @@ namespace Oxide {
 			glfwTerminate();
 			OX_CORE_ERROR("Unable to create a window using windowing framework(GLFW)")
 		}
+
 	}
 
 	void WindowsWindow::onUpdate()
 	{
+		glClearColor(0.8, 0.4, 0.8, 1.0f);
+		glClear(GL_COLOR_BUFFER_BIT);
 		glfwPollEvents();
 	}
 

@@ -1,5 +1,6 @@
 #include <iostream>
 #include "Core/Application.h"
+#include "Renderer/GraphicalContext.h"
 #include "Core/Window.h"
 #include "Logging/logger.h"
 
@@ -10,12 +11,14 @@ public:
 		Oxide::WindowData data;
 		m_window = Oxide::Window::create(data);
 		m_window->onInit();
+		m_graphicalContext = Oxide::GraphicalContext::create(m_window);
+		m_graphicalContext->init();
 		m_closeFlag = false;
 	}
 
 	void onUpdate() override {
 		m_window->onUpdate();
-
+		m_graphicalContext->swapBuffers();
 		if (m_window->isWindowClosed())
 			m_closeFlag = true;
 	}
@@ -31,6 +34,7 @@ public:
 private:
 	bool m_closeFlag;
 	std::shared_ptr<Oxide::Window> m_window;
+	std::shared_ptr<Oxide::GraphicalContext> m_graphicalContext;
 };
 
 std::shared_ptr<Oxide::Application> Oxide::getApplicationInterface() {

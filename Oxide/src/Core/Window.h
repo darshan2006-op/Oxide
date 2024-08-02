@@ -6,7 +6,7 @@ namespace Oxide {
 	struct WindowData {
 		std::string m_windowTitle = "Oxide Window";
 		uint32_t m_windowWidth = 1200;
-		uint32_t m_windowHeight = (9.0/16.0) * m_windowWidth;
+		uint32_t m_windowHeight = uint32_t((9.0/16.0) * m_windowWidth);
 		bool m_canResize = false;
 	};
 
@@ -16,6 +16,7 @@ namespace Oxide {
 		virtual void onInit() = 0;
 		virtual void onUpdate() = 0;
 		virtual void onDestroy() = 0;
+		virtual void* getNativeWindow() = 0;
 		virtual uint32_t getWidth() = 0;
 		virtual uint32_t getHeight() = 0;
 		virtual std::string getTitle() = 0;

@@ -1,7 +1,7 @@
 #pragma once
 #include "Core/Window.h"
 
-extern struct GLFWwindow;
+struct GLFWwindow;
 
 namespace Oxide {
 	class WindowsWindow: public Window {
@@ -10,6 +10,7 @@ namespace Oxide {
 		virtual void onInit() override;
 		virtual void onUpdate() override;
 		virtual void onDestroy() override;
+		virtual void* getNativeWindow() override { return m_window; };
 		virtual uint32_t getWidth() override { return m_windowData.m_windowWidth; }
 		virtual uint32_t getHeight() override { return m_windowData.m_windowHeight; }
 		virtual std::string getTitle() override { return m_windowData.m_windowTitle; }

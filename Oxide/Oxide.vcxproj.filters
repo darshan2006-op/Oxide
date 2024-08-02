@@ -30,6 +30,9 @@
     <ClInclude Include="src\Platform\Windows\WindowsWindow.h">
       <Filter>Platform\Windows</Filter>
     </ClInclude>
+    <ClInclude Include="src\Renderer\GraphicalContext.h" />
+    <ClInclude Include="src\Renderer\RenderingApi.h" />
+    <ClInclude Include="src\Platform\OpenGL\OpenGLGraphicalContext.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Core\EntryPoint.cpp">
@@ -44,5 +47,7 @@
     <ClCompile Include="src\Platform\Windows\WindowsWindow.cpp">
       <Filter>Platform\Windows</Filter>
     </ClCompile>
+    <ClCompile Include="src\Renderer\GraphicalContext.cpp" />
+    <ClCompile Include="src\Platform\OpenGL\OpenGLGraphicalContext.cpp" />
   </ItemGroup>
 </Project>
