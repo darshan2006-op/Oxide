@@ -9,6 +9,21 @@
 namespace Oxide {
 	Renderer2D Renderer2D::s_renderer;
 
+	static glm::vec3 rotateZ(glm::vec3& pos, float angle) {
+		glm::vec3 rotated;
+		rotated.x = pos.x * glm::cos(angle) - pos.y * glm::sin(angle);
+		rotated.y = pos.x * glm::sin(angle) + pos.y * glm::cos(angle);
+		rotated.z = pos.z;
+		return rotated;
+	}
+
+	static glm::vec3 quadPos[] = {
+		glm::vec3(-0.5f, -0.5f, 0.0f),
+		glm::vec3( 0.5f, -0.5f, 0.0f),
+		glm::vec3( 0.5f,  0.5f, 0.0f),
+		glm::vec3(-0.5f,  0.5f, 0.0f),
+	};
+
 	static std::string readFile(const char* path) {
 		std::ifstream file(path);
 		if (!file.is_open()) {
@@ -47,31 +62,31 @@ namespace Oxide {
 	{
 		s_renderer.m_data.m_proj = glm::ortho(-size.x / 2.0f, +size.x / 2.0f, -size.y / 2.0f, +size.y / 2.0f, -1.0f, 1.0f);
 	}
-	void Renderer2D::drawQuad(glm::vec3& pos, glm::vec2& scale, glm::vec3& colour) {
+	void Renderer2D::drawQuad(glm::vec3& pos, glm::vec2& scale, float angle, glm::vec3& colour) {
 		VertexData2D vertex;
-
+		float a = glm::radians(angle);
 		{
-			vertex.pos = pos - glm::vec3(scale / 2.0f, 0.0f);
+			vertex.pos = rotateZ(quadPos[0], a) * glm::vec3(scale, 1.0f) + pos;
 			vertex.color = colour;
 			s_renderer.m_data.m_vertices.push_back(vertex);
 		}
 
 		{
-			vertex.pos = glm::vec3(pos.x + scale.x / 2.0f, pos.y - scale.y / 2.0f, pos.z);
+			vertex.pos = rotateZ(quadPos[1], a) * glm::vec3(scale, 1.0f) + pos;
 			s_renderer.m_data.m_vertices.push_back(vertex);
 		}
 
 		{
-			vertex.pos = pos + glm::vec3(scale / 2.0f, 0.0f);
+			vertex.pos = rotateZ(quadPos[2], a) * glm::vec3(scale, 1.0f) + pos;
 			s_renderer.m_data.m_vertices.push_back(vertex);
 		}
 
 		{
-			vertex.pos = glm::vec3(pos.x - scale.x / 2.0f, pos.y + scale.y / 2.0f, pos.z);
+			vertex.pos = rotateZ(quadPos[3], a) * glm::vec3(scale, 1.0f) + pos;
 			s_renderer.m_data.m_vertices.push_back(vertex);
 		}
 
-		uint32_t size = s_renderer.m_data.numVertices;
+		uint32_t size = s_renderer.m_data.m_renderedVertices;
 		s_renderer.m_data.m_indices.push_back(size + 0);
 		s_renderer.m_data.m_indices.push_back(size + 1);
 		s_renderer.m_data.m_indices.push_back(size + 2);
@@ -81,6 +96,7 @@ namespace Oxide {
 
 		s_renderer.m_data.numIndices += 6;
 		s_renderer.m_data.numVertices += 4;
+		s_renderer.m_data.m_renderedVertices += 4;
 		s_renderer.m_data.numQuads += 4;
 
 		if (s_renderer.m_data.m_vertices.size() >= s_renderer.m_data.numMaxVertices && s_renderer.m_data.m_indices.size() >= s_renderer.m_data.numMaxIndices) {
@@ -100,6 +116,8 @@ namespace Oxide {
 		s_renderer.m_data.m_indices.clear();
 		s_renderer.m_data.m_indices.resize(0);
 
+		s_renderer.m_data.m_renderedVertices = 0;
+
 	}
 	void Renderer2D::begin()
 	{
@@ -115,7 +133,11 @@ namespace Oxide {
 	}
 	void Renderer2D::draw(glm::vec3& pos, glm::vec2& scale, glm::vec3& colour)
 	{
-		s_renderer.drawQuad(pos, scale, colour);
+		s_renderer.drawQuad(pos, scale, 0.0f, colour);
+	}
+	void Renderer2D::draw(glm::vec3& pos, glm::vec2& scale, float angle, glm::vec3& colour)
+	{
+		s_renderer.drawQuad(pos, scale, angle, colour);
 	}
 	void Renderer2D::end()
 	{

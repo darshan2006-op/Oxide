@@ -7,6 +7,7 @@
 #include "Events/KeyEvent.h"
 #include "Renderer/Renderer2D.h"
 
+#include <chrono>
 #include <iostream>
 #include <fstream>
 #include <sstream>
@@ -35,11 +36,13 @@ public:
 	void onUpdate() override {
 		Oxide::Renderer::clear();
 
+		a += 0.05f;
+
 		Oxide::Renderer2D::begin();
-		Oxide::Renderer2D::draw(glm::vec3( 150.0f,-150.0f,0.0f), glm::vec2(100.0f, 100.0f), glm::vec3(1.0f, 0.0f, 1.0f));
-		Oxide::Renderer2D::draw(glm::vec3(-150.0f,-150.0f,0.0f), glm::vec2(100.0f, 100.0f), glm::vec3(1.0f, 0.5f, 1.0f));
-		Oxide::Renderer2D::draw(glm::vec3( 150.0f, 150.0f,0.0f), glm::vec2(100.0f, 100.0f), glm::vec3(1.0f, 0.5f, 1.0f));
-		Oxide::Renderer2D::draw(glm::vec3(-150.0f, 150.0f,0.0f), glm::vec2(100.0f, 100.0f), glm::vec3(1.0f, 0.5f, 1.0f));
+		Oxide::Renderer2D::draw(glm::vec3(-150.0f,-150.0f,0.0f), glm::vec2(100.0f, 100.0f), -a , glm::vec3(1.0f, 0.5f, 1.0f));
+		Oxide::Renderer2D::draw(glm::vec3( 150.0f,-150.0f,0.0f), glm::vec2(100.0f, 100.0f), -(a + 20.0f), glm::vec3(1.0f, 0.5f, 1.0f));
+		Oxide::Renderer2D::draw(glm::vec3( 150.0f, 150.0f,0.0f), glm::vec2(100.0f, 100.0f), -(a + 40.0f), glm::vec3(1.0f, 0.5f, 1.0f));
+		Oxide::Renderer2D::draw(glm::vec3(-150.0f, 150.0f,0.0f), glm::vec2(100.0f, 100.0f), -(a + 60.0f), glm::vec3(1.0f, 0.5f, 1.0f));
 		Oxide::Renderer2D::end();
 
 		m_window->onUpdate();
@@ -85,6 +88,7 @@ public:
 	}
 
 private:
+	float a = 0;
 	bool m_closeFlag;
 	std::shared_ptr<Oxide::Window> m_window;
 	std::shared_ptr<Oxide::GraphicalContext> m_graphicalContext;

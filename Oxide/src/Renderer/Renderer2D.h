@@ -26,7 +26,7 @@ namespace Oxide {
 
 		friend class Renderer2D;
 	private:
-		//uint32_t m_renderedVertices = 0;
+		uint32_t m_renderedVertices = 0;
 		//uint32_t m_renderedIndices = 0;
 		glm::mat4 m_proj = glm::mat4(1.0f);
 		std::vector<uint32_t> m_indices;
@@ -43,9 +43,10 @@ namespace Oxide {
 		static void setViewportHeight(glm::vec2& size);
 		static void begin();
 		static void draw(glm::vec3& pos, glm::vec2& scale, glm::vec3& colour);
+		static void draw(glm::vec3& pos, glm::vec2& scale, float angle, glm::vec3& colour);
 		static void end();
 	private:
-		void drawQuad(glm::vec3& pos, glm::vec2& scale, glm::vec3& colour);
+		void drawQuad(glm::vec3& pos, glm::vec2& scale, float angle, glm::vec3& colour);
 		void flush();
 		static Renderer2D s_renderer;
 		RendererData m_data;
