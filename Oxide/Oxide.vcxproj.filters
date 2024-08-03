@@ -72,6 +72,14 @@
     <ClInclude Include="src\Renderer\RenderingApi.h">
       <Filter>Renderer</Filter>
     </ClInclude>
+    <ClInclude Include="src\Renderer\VertexBuffer.h" />
+    <ClInclude Include="src\Platform\OpenGL\OpenGLVertexBuffer.h" />
+    <ClInclude Include="src\Renderer\IndexBuffer.h" />
+    <ClInclude Include="src\Platform\OpenGL\OpenGLIndexBuffer.h" />
+    <ClInclude Include="src\Renderer\VertexArrayObject.h" />
+    <ClInclude Include="src\Platform\OpenGL\OpenGLVertexArrayObject.h" />
+    <ClInclude Include="src\Renderer\Shader.h" />
+    <ClInclude Include="src\Platform\OpenGL\OpenGLShader.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Core\EntryPoint.cpp">
@@ -98,5 +106,13 @@
     <ClCompile Include="src\Renderer\Renderer.cpp">
       <Filter>Renderer</Filter>
     </ClCompile>
+    <ClCompile Include="src\Renderer\VertexBuffer.cpp" />
+    <ClCompile Include="src\Platform\OpenGL\OpenGLVertexBuffer.cpp" />
+    <ClCompile Include="src\Renderer\IndexBuffer.cpp" />
+    <ClCompile Include="src\Platform\OpenGL\OpenGLIndexBuffer.cpp" />
+    <ClCompile Include="src\Renderer\VertexArrayObject.cpp" />
+    <ClCompile Include="src\Platform\OpenGL\OpenGLVertexArrayObject.cpp" />
+    <ClCompile Include="src\Renderer\Shader.cpp" />
+    <ClCompile Include="src\Platform\OpenGL\OpenGLShader.cpp" />
   </ItemGroup>
 </Project>

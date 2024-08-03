@@ -17,6 +17,13 @@ namespace Oxide {
 	}
 	void OpenGLRenderer::clear()
 	{
-		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+		glClear(GL_COLOR_BUFFER_BIT);
+	}
+	void OpenGLRenderer::Draw(const std::shared_ptr<VertexArrayObject>& vao, const std::shared_ptr<IndexBuffer>& ib, const std::shared_ptr<Shader>& shader, uint32_t count)
+	{
+		shader->use();
+		vao->use();
+		ib->use();
+		glDrawElements(GL_TRIANGLES, count, GL_UNSIGNED_INT, nullptr);
 	}
 }
