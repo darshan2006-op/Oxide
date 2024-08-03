@@ -1,6 +1,7 @@
 #include "OpenGLShader.h"
 #include "Logging/logger.h"
 #include "glad/glad.h"
+#include "glm/gtc/type_ptr.hpp"
 
 namespace Oxide {
 	static uint32_t getShaderType(ShaderType type) {
@@ -21,7 +22,7 @@ namespace Oxide {
 		}
 	}
 
-	OpenGLShader::OpenGLShader(): m_id(0), m_shaders()
+	OpenGLShader::OpenGLShader(): m_id(0), m_shaders(), m_cached()
 	{
 		m_id = glCreateProgram();
 	}
@@ -67,8 +68,43 @@ namespace Oxide {
 	{
 		glUseProgram(m_id);
 	}
+	void OpenGLShader::Mat4(const char* name, glm::mat4& mat)
+	{
+		auto id = getUniformId(name);
+		glUniformMatrix4fv(id, 1, GL_FALSE, glm::value_ptr(mat));
+	}
+	void OpenGLShader::Int(const char* name, int value)
+	{
+		auto id = getUniformId(name);
+		glUniform1i(id, value);
+	}
+	void OpenGLShader::Float(const char* name, float value)
+	{
+		auto id = getUniformId(name);
+		glUniform1f(id, value);
+	}
+	void OpenGLShader::Float2(const char* name, glm::vec2 v2)
+	{
+		auto id = getUniformId(name);
+		glUniform2fv(id, 1, glm::value_ptr(v2));
+	}
+	void OpenGLShader::Float3(const char* name, glm::vec3 v3)
+	{
+		auto id = getUniformId(name);
+		glUniform3fv(id, 1, glm::value_ptr(v3));
+	}
+	void OpenGLShader::Float4(const char* name, glm::vec4 v4)
+	{
+		auto id = getUniformId(name);
+		glUniform4fv(id, 1, glm::value_ptr(v4));
+	}
 	OpenGLShader::~OpenGLShader()
 	{
 		glDeleteProgram(m_id);
+	}
+	uint32_t OpenGLShader::getUniformId(const char* name)
+	{
+		if (m_cached.count(name) == 0) m_cached[name] = glGetUniformLocation(m_id, name);
+		return m_cached.at(name);
 	}
 }

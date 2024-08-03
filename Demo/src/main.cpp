@@ -5,10 +5,7 @@
 #include "Logging/logger.h"
 #include "Events/Event.h"
 #include "Events/KeyEvent.h"
-#include "Renderer/VertexBuffer.h"
-#include "Renderer/VertexArrayObject.h"
-#include "Renderer/IndexBuffer.h"
-#include "Renderer/Shader.h"
+#include "Renderer/Renderer2D.h"
 
 #include <iostream>
 #include <fstream>
@@ -28,41 +25,22 @@ public:
 		m_graphicalContext = Oxide::GraphicalContext::create(m_window);
 		m_graphicalContext->init();
 		m_closeFlag = false;
-
-		float vertices[] = {
-			-0.5f, -0.5f, 0.0f, 1.0f, 0.0f, 0.0f,
-			 0.5f, -0.5f, 0.0f, 0.0f, 1.0f, 0.0f,
-			 0.0f,  0.5f, 0.0f, 0.0f, 0.0f, 1.0f,
-		};
-
-		unsigned int indices[] = { 0,1,2 };
-
-		std::string vsrc = App::readFile("res/vert.glsl");
-		std::string fsrc = App::readFile("res/frag.glsl");
-		m_shader = Oxide::Shader::create();
-		m_shader->addShader(Oxide::ShaderType::VertexShader, vsrc);
-		m_shader->addShader(Oxide::ShaderType::FragmentShader, fsrc);
-		m_shader->compile();
-
-		m_vb = Oxide::VertexBuffer::create();
-		m_ib = Oxide::IndexBuffer::create();
-		m_vao = Oxide::VertexArrayObject::create();
-
-		m_vb->addData(vertices, sizeof(vertices));
-		m_ib->addData(indices, sizeof(indices));
-
-		Oxide::Attributes attrs;
-		attrs.addAttribute(Oxide::VertexAttributeTypes::Float3);
-		attrs.addAttribute(Oxide::VertexAttributeTypes::Float3);
-
-		m_vao->addVertexBuffer(m_vb, attrs);
+		
+		Oxide::Renderer2D::init();
+		Oxide::Renderer2D::setViewportHeight(glm::vec2(data.m_windowWidth, data.m_windowHeight));
 
 		Oxide::Renderer::setClearColour(0x000000ff);
 	}
 
 	void onUpdate() override {
 		Oxide::Renderer::clear();
-		Oxide::Renderer::Draw(m_vao, m_ib, m_shader, 3);
+
+		Oxide::Renderer2D::begin();
+		Oxide::Renderer2D::draw(glm::vec3( 150.0f,-150.0f,0.0f), glm::vec2(100.0f, 100.0f), glm::vec3(1.0f, 0.0f, 1.0f));
+		Oxide::Renderer2D::draw(glm::vec3(-150.0f,-150.0f,0.0f), glm::vec2(100.0f, 100.0f), glm::vec3(1.0f, 0.5f, 1.0f));
+		Oxide::Renderer2D::draw(glm::vec3( 150.0f, 150.0f,0.0f), glm::vec2(100.0f, 100.0f), glm::vec3(1.0f, 0.5f, 1.0f));
+		Oxide::Renderer2D::draw(glm::vec3(-150.0f, 150.0f,0.0f), glm::vec2(100.0f, 100.0f), glm::vec3(1.0f, 0.5f, 1.0f));
+		Oxide::Renderer2D::end();
 
 		m_window->onUpdate();
 		m_graphicalContext->swapBuffers();
@@ -108,12 +86,6 @@ public:
 
 private:
 	bool m_closeFlag;
-
-	std::shared_ptr<Oxide::VertexArrayObject> m_vao;
-	std::shared_ptr<Oxide::VertexBuffer> m_vb;
-	std::shared_ptr<Oxide::IndexBuffer> m_ib;
-	std::shared_ptr<Oxide::Shader> m_shader;
-
 	std::shared_ptr<Oxide::Window> m_window;
 	std::shared_ptr<Oxide::GraphicalContext> m_graphicalContext;
 };

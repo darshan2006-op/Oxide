@@ -15,6 +15,7 @@ project "Oxide"
     includedirs{
         "src",
         "%{IncludeDir.glfw}",
+        "%{IncludeDir.glm}",
         "%{IncludeDir.glad}",
         "%{IncludeDir.spdlog}"
     }

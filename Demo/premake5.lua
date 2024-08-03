@@ -14,6 +14,7 @@ project "Demo"
     includedirs{
         "src",
         "%{IncludeDir.Oxide}",
+        "%{IncludeDir.glm}",
         "%{IncludeDir.spdlog}"
     }
 
