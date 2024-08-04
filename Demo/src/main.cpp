@@ -7,6 +7,7 @@
 #include "Events/KeyEvent.h"
 #include "Events/MouseEvents.h"
 #include "Renderer/Renderer2D.h"
+#include "Renderer/Camera2D.h"
 
 #include <chrono>
 #include <iostream>
@@ -31,6 +32,10 @@ public:
 		Oxide::Renderer2D::init();
 		Oxide::Renderer2D::setViewportHeight(glm::vec2(data.m_windowWidth, data.m_windowHeight));
 
+		m_cam = Oxide::Camera2D();
+
+		m_camPos = m_cam.getCameraPosition();
+
 		Oxide::Renderer::setClearColour(0x000000ff);
 	}
 
@@ -39,8 +44,10 @@ public:
 
 		a += 0.05f;
 
-		Oxide::Renderer2D::begin();
-		Oxide::Renderer2D::draw(glm::vec3(m_mpos, 0.0f), glm::vec2(100.0f, 100.0f), -a, glm::vec3(1.0f, 0.5f, 1.0f), glm::vec3( 100.0f, 100.0f, 0.0f));
+		m_cam.setCameraPosition(m_camPos);
+
+		Oxide::Renderer2D::begin(m_cam);
+		Oxide::Renderer2D::draw(glm::vec3(0.0f, 0.0f, 0.0f), glm::vec2(100.0f, 100.0f), -a, glm::vec3(1.0f, 0.5f, 1.0f));
 		Oxide::Renderer2D::end();
 
 		m_window->onUpdate();
@@ -69,6 +76,23 @@ public:
 		if(e.GetKeyCode() == Oxide::Key::Escape){
 			g_application->m_closeFlag = true;
 		}
+
+		if (e.GetKeyCode() == Oxide::Key::A) {
+			g_application->m_camPos.x -= 10.0f;
+		}
+
+		if (e.GetKeyCode() == Oxide::Key::D) {
+			g_application->m_camPos.x += 10.0f;
+		}
+
+		if (e.GetKeyCode() == Oxide::Key::S) {
+			g_application->m_camPos.y -= 10.0f;
+		}
+
+		if (e.GetKeyCode() == Oxide::Key::W) {
+			g_application->m_camPos.y += 10.0f;
+		}
+
 		return true;
 	}
 
@@ -97,6 +121,8 @@ private:
 	float a = 0;
 	bool m_closeFlag;
 	glm::vec2 m_mpos;
+	Oxide::Camera2D m_cam;
+	glm::vec3 m_camPos;
 	std::shared_ptr<Oxide::Window> m_window;
 	std::shared_ptr<Oxide::GraphicalContext> m_graphicalContext;
 };

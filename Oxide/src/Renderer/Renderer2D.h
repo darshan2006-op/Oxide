@@ -5,6 +5,7 @@
 #include "VertexArrayObject.h"
 #include "Renderer.h"
 #include "glm/glm.hpp"
+#include "Camera2D.h"
 
 #include <vector>
 
@@ -21,7 +22,6 @@ namespace Oxide {
 		uint32_t numVertices = 0;
 		uint32_t numIndices = 0;
 		uint32_t numDrawCalls = 0;
-
 		const uint32_t numMaxVertices = 4 * 200;
 		const uint32_t numMaxIndices = 6 * 200;
 
@@ -29,6 +29,8 @@ namespace Oxide {
 	private:
 		uint32_t m_renderedVertices = 0;
 		glm::mat4 m_proj = glm::mat4(1.0f);
+		Camera2D m_cam = Camera2D();
+
 		std::vector<uint32_t> m_indices;
 		std::vector<VertexData2D> m_vertices;
 		std::shared_ptr<VertexBuffer> m_vb;
@@ -41,7 +43,7 @@ namespace Oxide {
 	public:
 		static void init();
 		static void setViewportHeight(glm::vec2& size);
-		static void begin();
+		static void begin(Camera2D& cam = Camera2D());
 		static void draw(glm::vec3& pos, glm::vec2& scale, glm::vec3& colour);
 		static void draw(glm::vec3& pos, glm::vec2& scale, float angle, glm::vec3& colour);
 		static void draw(glm::vec3& pos, glm::vec2& scale, float angle, glm::vec3& colour, glm::vec3& origin);

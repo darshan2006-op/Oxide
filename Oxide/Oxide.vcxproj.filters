@@ -99,6 +99,7 @@
     <ClInclude Include="src\Renderer\VertexBuffer.h">
       <Filter>Renderer</Filter>
     </ClInclude>
+    <ClInclude Include="src\Renderer\Camera2D.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Core\EntryPoint.cpp">
@@ -152,5 +153,6 @@
     <ClCompile Include="src\Renderer\VertexBuffer.cpp">
       <Filter>Renderer</Filter>
     </ClCompile>
+    <ClCompile Include="src\Renderer\Camera2D.cpp" />
   </ItemGroup>
 </Project>

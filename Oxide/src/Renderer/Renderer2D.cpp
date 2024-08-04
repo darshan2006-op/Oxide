@@ -108,6 +108,7 @@ namespace Oxide {
 		s_renderer.m_data.m_ib->addData(s_renderer.m_data.m_indices.data(), s_renderer.m_data.m_indices.size() * sizeof(uint32_t));
 		s_renderer.m_data.m_shader->use();
 		s_renderer.m_data.m_shader->Mat4("u_proj", s_renderer.m_data.m_proj);
+		s_renderer.m_data.m_shader->Mat4("u_view", s_renderer.m_data.m_cam.getProjectionMatrix());
 		Renderer::Draw(s_renderer.m_data.m_vao, s_renderer.m_data.m_ib, s_renderer.m_data.m_shader, s_renderer.m_data.m_indices.size());
 
 		s_renderer.m_data.m_vertices.clear();
@@ -120,7 +121,7 @@ namespace Oxide {
 
 		s_renderer.m_data.numDrawCalls++;
 	}
-	void Renderer2D::begin()
+	void Renderer2D::begin(Camera2D& cam)
 	{
 		s_renderer.m_data.numIndices = 0;
 		s_renderer.m_data.numVertices = 0;
@@ -131,6 +132,8 @@ namespace Oxide {
 
 		s_renderer.m_data.m_indices.clear();
 		s_renderer.m_data.m_indices.resize(0);
+
+		s_renderer.m_data.m_cam = cam;
 	}
 	void Renderer2D::draw(glm::vec3& pos, glm::vec2& scale, glm::vec3& colour)
 	{
