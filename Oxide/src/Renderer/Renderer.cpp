@@ -84,4 +84,22 @@ namespace Oxide {
 		}
 		}
 	}
+	void Renderer::Draw(const std::shared_ptr<VertexArrayObject>& vao, const std::shared_ptr<IndexBuffer>& ib, const std::shared_ptr<Shader>& shader, const std::shared_ptr<Texture2D>& text, uint32_t count)
+	{
+		switch (getCurrentRenderingApi())
+		{
+		case Oxide::RenderingApis::Vulkan: {
+			OX_CORE_ERROR("Vulkan Not Supported")
+				break;
+		}
+		case Oxide::RenderingApis::Opengl: {
+			OpenGLRenderer::Draw(vao, ib, shader ,text, count);
+			break;
+		}
+		default: {
+			OX_CORE_ERROR("Unknown Api")
+				break;
+		}
+		}
+	}
 }

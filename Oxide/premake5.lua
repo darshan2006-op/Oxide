@@ -17,12 +17,14 @@ project "Oxide"
         "%{IncludeDir.glfw}",
         "%{IncludeDir.glm}",
         "%{IncludeDir.glad}",
+        "%{IncludeDir.stb_image}",
         "%{IncludeDir.spdlog}"
     }
 
     links{
         "opengl32.lib",
         "GLFW",
+        "stb_image",
         "glad"
     }
 

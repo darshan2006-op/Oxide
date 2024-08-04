@@ -26,4 +26,12 @@ namespace Oxide {
 		ib->use();
 		glDrawElements(GL_TRIANGLES, count, GL_UNSIGNED_INT, nullptr);
 	}
+	void OpenGLRenderer::Draw(const std::shared_ptr<VertexArrayObject>& vao, const std::shared_ptr<IndexBuffer>& ib, const std::shared_ptr<Shader>& shader, const std::shared_ptr<Texture2D>& text, uint32_t count)
+	{
+		text->use();
+		shader->use();
+		vao->use();
+		ib->use();
+		glDrawElements(GL_TRIANGLES, count, GL_UNSIGNED_INT, nullptr);
+	}
 }

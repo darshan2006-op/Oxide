@@ -8,5 +8,7 @@ namespace Oxide {
 		static void setClearColour(uint32_t color);
 		static void clear();
 		static void Draw(const std::shared_ptr<VertexArrayObject>& vao, const std::shared_ptr<IndexBuffer>& ib, const std::shared_ptr<Shader>& shader, uint32_t count);
+		static void Draw(const std::shared_ptr<VertexArrayObject>& vao, const std::shared_ptr<IndexBuffer>& ib, const std::shared_ptr<Shader>& shader,
+			const std::shared_ptr<Texture2D>& text, uint32_t count);
 	};
 }
