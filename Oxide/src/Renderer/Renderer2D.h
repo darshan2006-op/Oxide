@@ -20,6 +20,7 @@ namespace Oxide {
 		uint32_t numQuads = 0;
 		uint32_t numVertices = 0;
 		uint32_t numIndices = 0;
+		uint32_t numDrawCalls = 0;
 
 		const uint32_t numMaxVertices = 4 * 200;
 		const uint32_t numMaxIndices = 6 * 200;
@@ -27,7 +28,6 @@ namespace Oxide {
 		friend class Renderer2D;
 	private:
 		uint32_t m_renderedVertices = 0;
-		//uint32_t m_renderedIndices = 0;
 		glm::mat4 m_proj = glm::mat4(1.0f);
 		std::vector<uint32_t> m_indices;
 		std::vector<VertexData2D> m_vertices;
@@ -44,9 +44,10 @@ namespace Oxide {
 		static void begin();
 		static void draw(glm::vec3& pos, glm::vec2& scale, glm::vec3& colour);
 		static void draw(glm::vec3& pos, glm::vec2& scale, float angle, glm::vec3& colour);
+		static void draw(glm::vec3& pos, glm::vec2& scale, float angle, glm::vec3& colour, glm::vec3& origin);
 		static void end();
 	private:
-		void drawQuad(glm::vec3& pos, glm::vec2& scale, float angle, glm::vec3& colour);
+		void drawQuad(glm::vec3& pos, glm::vec2& scale, float angle, glm::vec3& colour, glm::vec3& origin);
 		void flush();
 		static Renderer2D s_renderer;
 		RendererData m_data;

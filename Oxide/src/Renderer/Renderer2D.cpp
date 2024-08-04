@@ -62,27 +62,27 @@ namespace Oxide {
 	{
 		s_renderer.m_data.m_proj = glm::ortho(-size.x / 2.0f, +size.x / 2.0f, -size.y / 2.0f, +size.y / 2.0f, -1.0f, 1.0f);
 	}
-	void Renderer2D::drawQuad(glm::vec3& pos, glm::vec2& scale, float angle, glm::vec3& colour) {
+	void Renderer2D::drawQuad(glm::vec3& pos, glm::vec2& scale, float angle, glm::vec3& colour, glm::vec3& origin) {
 		VertexData2D vertex;
 		float a = glm::radians(angle);
 		{
-			vertex.pos = rotateZ(quadPos[0], a) * glm::vec3(scale, 1.0f) + pos;
+			vertex.pos = rotateZ(quadPos[0] * glm::vec3(scale, 1.0f) + origin, a) + pos;
 			vertex.color = colour;
 			s_renderer.m_data.m_vertices.push_back(vertex);
 		}
 
 		{
-			vertex.pos = rotateZ(quadPos[1], a) * glm::vec3(scale, 1.0f) + pos;
+			vertex.pos = rotateZ(quadPos[1] * glm::vec3(scale, 1.0f) + origin, a)  + pos;
 			s_renderer.m_data.m_vertices.push_back(vertex);
 		}
 
 		{
-			vertex.pos = rotateZ(quadPos[2], a) * glm::vec3(scale, 1.0f) + pos;
+			vertex.pos = rotateZ(quadPos[2] * glm::vec3(scale, 1.0f) + origin, a)  + pos;
 			s_renderer.m_data.m_vertices.push_back(vertex);
 		}
 
 		{
-			vertex.pos = rotateZ(quadPos[3], a) * glm::vec3(scale, 1.0f) + pos;
+			vertex.pos = rotateZ(quadPos[3] * glm::vec3(scale, 1.0f) + origin, a) + pos;
 			s_renderer.m_data.m_vertices.push_back(vertex);
 		}
 
@@ -118,6 +118,7 @@ namespace Oxide {
 
 		s_renderer.m_data.m_renderedVertices = 0;
 
+		s_renderer.m_data.numDrawCalls++;
 	}
 	void Renderer2D::begin()
 	{
@@ -133,11 +134,15 @@ namespace Oxide {
 	}
 	void Renderer2D::draw(glm::vec3& pos, glm::vec2& scale, glm::vec3& colour)
 	{
-		s_renderer.drawQuad(pos, scale, 0.0f, colour);
+		s_renderer.drawQuad(pos, scale, 0.0f, colour, glm::vec3(0.0f, 0.0f, 0.0f));
 	}
 	void Renderer2D::draw(glm::vec3& pos, glm::vec2& scale, float angle, glm::vec3& colour)
 	{
-		s_renderer.drawQuad(pos, scale, angle, colour);
+		s_renderer.drawQuad(pos, scale, angle, colour, glm::vec3(0.0f, 0.0f, 0.0f));
+	}
+	void Renderer2D::draw(glm::vec3& pos, glm::vec2& scale, float angle, glm::vec3& colour, glm::vec3& origin)
+	{
+		s_renderer.drawQuad(pos, scale, angle, colour, origin);
 	}
 	void Renderer2D::end()
 	{

@@ -5,6 +5,7 @@
 #include "Logging/logger.h"
 #include "Events/Event.h"
 #include "Events/KeyEvent.h"
+#include "Events/MouseEvents.h"
 #include "Renderer/Renderer2D.h"
 
 #include <chrono>
@@ -39,10 +40,7 @@ public:
 		a += 0.05f;
 
 		Oxide::Renderer2D::begin();
-		Oxide::Renderer2D::draw(glm::vec3(-150.0f,-150.0f,0.0f), glm::vec2(100.0f, 100.0f), -a , glm::vec3(1.0f, 0.5f, 1.0f));
-		Oxide::Renderer2D::draw(glm::vec3( 150.0f,-150.0f,0.0f), glm::vec2(100.0f, 100.0f), -(a + 20.0f), glm::vec3(1.0f, 0.5f, 1.0f));
-		Oxide::Renderer2D::draw(glm::vec3( 150.0f, 150.0f,0.0f), glm::vec2(100.0f, 100.0f), -(a + 40.0f), glm::vec3(1.0f, 0.5f, 1.0f));
-		Oxide::Renderer2D::draw(glm::vec3(-150.0f, 150.0f,0.0f), glm::vec2(100.0f, 100.0f), -(a + 60.0f), glm::vec3(1.0f, 0.5f, 1.0f));
+		Oxide::Renderer2D::draw(glm::vec3(m_mpos, 0.0f), glm::vec2(100.0f, 100.0f), -a, glm::vec3(1.0f, 0.5f, 1.0f), glm::vec3( 100.0f, 100.0f, 0.0f));
 		Oxide::Renderer2D::end();
 
 		m_window->onUpdate();
@@ -63,6 +61,7 @@ public:
 	virtual void onEvent(Oxide::Event& e) {
 		Oxide::EventDispatcher dipatcher (e);
 		dipatcher.Dispatch<Oxide::KeyPressedEvent>(&App::onKeyPessed);
+		dipatcher.Dispatch<Oxide::MouseMovedEvent>(&App::onMouseMoved);
 	}
 
 	static bool onKeyPessed(Oxide::KeyPressedEvent& e) {
@@ -70,6 +69,13 @@ public:
 		if(e.GetKeyCode() == Oxide::Key::Escape){
 			g_application->m_closeFlag = true;
 		}
+		return true;
+	}
+
+	static bool onMouseMoved(Oxide::MouseMovedEvent& e) {
+		auto h = g_application->m_window->getHeight();
+		auto w = g_application->m_window->getWidth();
+		g_application->m_mpos = glm::vec2(e.GetX() - w/2, -(e.GetY() - h/2));
 		return true;
 	}
 
@@ -90,6 +96,7 @@ public:
 private:
 	float a = 0;
 	bool m_closeFlag;
+	glm::vec2 m_mpos;
 	std::shared_ptr<Oxide::Window> m_window;
 	std::shared_ptr<Oxide::GraphicalContext> m_graphicalContext;
 };
